@@ -1,5 +1,5 @@
 /* ============================================
-   Site 1 - Poornima & Budheshwar Wedding
+   Site 1 - Poornima & Budheswar Wedding
    Script - Vanilla JS
    ============================================ */
 

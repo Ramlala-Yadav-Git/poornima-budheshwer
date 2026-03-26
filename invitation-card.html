@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Poornima & Budheshwar - Wedding Invitation</title>
+  <title>Poornima & Budheswar - Wedding Invitation</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Dancing+Script:wght@400;600;700&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
   <style>
     * {
@@ -34,18 +34,6 @@
       justify-content: center;
       padding: 60px;
       flex-shrink: 0;
-    }
-
-    /* Subtle texture overlay */
-    .card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse at 50% 0%, rgba(201, 169, 110, 0.06) 0%, transparent 60%),
-        radial-gradient(ellipse at 50% 100%, rgba(201, 169, 110, 0.04) 0%, transparent 50%);
-      pointer-events: none;
-      z-index: 0;
     }
 
     /* Outer border */
@@ -218,7 +206,6 @@
       flex-shrink: 0;
     }
 
-    /* Small decorative dots around diamond */
     .ornament-diamond-wrap {
       display: flex;
       align-items: center;
@@ -343,12 +330,14 @@
     /* Venue */
     .venue {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       color: rgba(201, 169, 110, 0.7);
       font-style: italic;
       letter-spacing: 2px;
       margin-bottom: 30px;
       font-weight: 300;
+      line-height: 1.8;
+      max-width: 700px;
     }
 
     /* Save the date */
@@ -397,7 +386,7 @@
       <!-- Couple names -->
       <div class="couple-name">Poornima</div>
       <div class="couple-and">&amp;</div>
-      <div class="couple-name">Budheshwar</div>
+      <div class="couple-name">Budheswar</div>
 
       <!-- Divider -->
       <div class="divider"></div>
@@ -410,11 +399,6 @@
 
       <!-- Events -->
       <div class="events">
-        <div class="event-item">
-          <div class="event-name">Tilak</div>
-          <div class="event-date">5th March 2026</div>
-        </div>
-        <div class="event-separator"></div>
         <div class="event-item">
           <div class="event-name">Mehndi</div>
           <div class="event-date">5th March 2026</div>
@@ -432,7 +416,10 @@
       </div>
 
       <!-- Venue -->
-      <div class="venue">Venue details to follow</div>
+      <div class="venue">
+        <div>Haldi, Mehndi &amp; Sangeet: Own Home, Village Sanda, Post Saraundha, Tehsil Deoser, Dist. Singrauli - 486889</div>
+        <div style="margin-top: 12px;">Wedding: Shri Ganga Vilas Palace, Mudi Talai Road, Madariya, Sidhi - 486881</div>
+      </div>
 
       <!-- Bottom ornament -->
       <div class="ornament">
@@ -450,7 +437,7 @@
     </div>
   </div>
 
-  <!-- Download Button (won't appear in the image) -->
+  <!-- Download Button -->
   <button id="downloadBtn" style="
     position: fixed;
     bottom: 30px;
@@ -479,20 +466,25 @@
       btn.disabled = true;
       var card = document.querySelector('.card');
       html2canvas(card, {
-        scale: 3,
+        scale: 2,
         useCORS: true,
         backgroundColor: null,
         width: 1080,
         height: 1920,
-        logging: false
+        logging: false,
+        allowTaint: true
       }).then(function(canvas) {
-        var link = document.createElement('a');
-        link.download = 'Poornima-Budheshwar-Wedding-Invitation.png';
-        link.href = canvas.toDataURL('image/png');
-        link.click();
-        btn.textContent = '⬇ Download HD Image';
-        btn.disabled = false;
-      }).catch(function() {
+        canvas.toBlob(function(blob) {
+          var link = document.createElement('a');
+          link.download = 'Poornima-Budheswar-Wedding-Invitation.png';
+          link.href = URL.createObjectURL(blob);
+          link.click();
+          URL.revokeObjectURL(link.href);
+          btn.textContent = '⬇ Download HD Image';
+          btn.disabled = false;
+        }, 'image/png');
+      }).catch(function(err) {
+        console.error(err);
         btn.textContent = '⬇ Download HD Image';
         btn.disabled = false;
         alert('Something went wrong. Please try again.');
